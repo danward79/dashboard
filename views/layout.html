@@ -1,0 +1,33 @@
+{{define "layout"}}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>  {{template "title"}}</title>
+
+  <!-- Bootstrap -->
+  <link href="./css/bootstrap.css" rel="stylesheet">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="./scripts/jquery-1.11.3.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="./scripts/bootstrap.js"></script>
+
+</head>
+<body>
+
+  <div class="container-fluid">
+      <!---Header --->
+      <div class="page-header">
+        <h1><img alt="Metro" src="./images/iconTrain.png"> Dashboard <small>{{template "title"}}</small></h1>
+      </div>
+      {{template "body"}}
+  </div>
+
+</body>
+{{end}}

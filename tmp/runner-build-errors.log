@@ -1,0 +1,2 @@
+# github.com/danward79/dashboard
+./server.go:15: undefined: sql in sql.DB
