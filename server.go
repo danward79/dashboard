@@ -1,9 +1,10 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/codegangsta/negroni"
 	"github.com/gorilla/mux"
@@ -11,19 +12,21 @@ import (
 	"github.com/danward79/dashboard/controllers"
 )
 
-//Env ...
-type Env struct {
-	*controllers.Env
-}
-
-var env *Env
+var env *controllers.Env
 
 func init() {
 	log.Println("Dashboard Web App")
 
-	env = controllers.Init("data.db")
+	dbPath := flag.String("d", "", "path to database")
+	flag.Parse()
 
-	fmt.Println(env.DB)
+	if *dbPath == "" {
+		flag.PrintDefaults()
+		log.Println("database source required")
+		os.Exit(1)
+	}
+
+	env = controllers.Init(*dbPath)
 }
 
 func main() {

@@ -1,17 +1,17 @@
 package models
 
-import "time"
+import "encoding/json"
 
 //Cycle ...
 type Cycle struct {
 	Operation int
-	Time      time.Time
+	Time      string
 	Duration  int
 }
 
-//Chart ...
-func (db *DB) Chart(v int, d int) ([]*Cycle, error) {
-	rows, err := db.Query("SELECT * FROM Doors WHERE Vehicle = 1304 and Position = 4;")
+//Chart model, provides JSON data to represent query
+func (db *DB) Chart(v int, d int) ([]byte, error) {
+	rows, err := db.Query("SELECT Operation, Time, Duration FROM Doors WHERE Vehicle = ? and Position = ?;", v, d)
 	if err != nil {
 		return nil, err
 	}
@@ -30,5 +30,15 @@ func (db *DB) Chart(v int, d int) ([]*Cycle, error) {
 	if err = rows.Err(); err != nil {
 		return nil, err
 	}
-	return cycles, nil
+
+	return marshall(cycles)
+}
+
+func marshall(c []*Cycle) ([]byte, error) {
+	b, err := json.Marshal(c)
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
 }
